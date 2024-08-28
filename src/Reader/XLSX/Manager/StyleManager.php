@@ -104,6 +104,12 @@ class StyleManager implements StyleManagerInterface
         $stylesAttributes = $this->getStylesAttributes();
         $styleAttributes = $stylesAttributes[$styleId];
         $numFmtId = $styleAttributes[self::XML_ATTRIBUTE_NUM_FMT_ID];
+
+        if (!\is_int($numFmtId)) {
+            $customNumberFormats = $this->getCustomNumberFormats();
+            return $customNumberFormats[$numFmtId] ?? '';
+        }
+
         \assert(\is_int($numFmtId));
 
         if ($this->isNumFmtIdBuiltInDateFormat($numFmtId)) {
